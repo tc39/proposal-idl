@@ -27,21 +27,49 @@ TC39 has been gradually been adding to its standard library using "ecmaspeak" no
 
 #### Ease of following conventions in new specifications
 
-The free-form nature of argument handling makes it hard to follow conventions reliably. For example, in Intl, [...]
+The free-form nature of argument handling makes it hard to follow conventions reliably. For example, in Intl, we had several issues where it was unclear what the appropriate way is to process options bags, make constructors and prototype chains work, etc. Ecmaspeak gives many degrees of freedom here, and the conventions aren't formally documented anywhere. Documenting conventions could get us part of the way there, but if we had a language where we could concisely describe the "binding" parts of the interface, it would be easier to stick to those conventions.
 
 #### Auto-generation of bindings in native implementations
 
+JavaScript implementations need to create the object graph for built-ins objects and methods defined by the ECMAScript specification. Currently, this is often done by having either JavaScript or C++ code which explicitly declares all of the objects and methods, and imperatively constructs them.
+
+By contrast, in web browsers, web platform APIs are often described by their WebIDL, and bindings directly to a C++ implementation can be generated. This IDL-based approach has a number of advantages:
+- It becomes easier to maintain the code that sets up the object graph and ensure that it matches the specification
+- Authors of specifications and implementers can make advancements in a way that's abstracted a bit from the details of JavaScript
+- Specification changes can be propagated into the implementation through a copy-paste (modulo browser-specific WebIDL features--work is ongoing to minimize the need for these)
+
 #### "type" definitions for tools
+
+Many tools need to deal with JavaScript's standard library, such as:
+- Code completion in IDEs
+- Type systems like TypeScript and Flow
+- Bindings between JavaScript and other programming languages, like wasm-bindgen
+
+These tools can often use WebIDL as a "type definition" for web specifications. However, for the JavaScript standard library, extra resources are needed. We end up with N x M work, duplicating the definitions per tool per library feature.
 
 ## Requirements
 
+The below is just some initial notes on requirements for IDL for JavaScript; these initial thoughts will need to be elaborated in more detail over the course of the Stage 1 investigation. The focus here is on mismatches vs WebIDL.
+
 ### Casts of arguments
+
+In ECMAScript methods, arguments and the receiver are usually converted to or checked to be of a particular "type", for example, with operations like ToUint32. These could be conceptually part of the "type declaration" in IDL.
 
 #### Laziness
 
+Sometimes, arguments are coerced "lazily", in the middle of the algorithm, rather than up-front. The idea here is to match how a JavaScript programmer would implement the algorithm. This laziness differs from WebIDL, which does all the coercions and checks when entering the method.
+
 ### Overloading
 
+JavaScript constructors are often overloaded on different argument types. The overloading pattern here might or might not match WebIDL's restriction on mixed arguments.
+
 ### Matching JS conventions
+
+There are lots of little things that need to be right here, e.g., methods in JavaScript builtins are non-enumerable, whereas they are enumerable in WebIDL.
+
+### Intuitive syntax
+
+WebIDL syntax can look strange to JavaScript developers. We may want to ensure that the IDL used in ECMAScript uses sufficiently intuitive syntax.
 
 ## Which language?
 
