@@ -1,6 +1,8 @@
 # IDL for ECMAScript
 
-This repository is intended for an investigation into using an Interface Description Language (IDL) in the ECMAScript standard.
+This repository is intended for an investigation into using an Interface Description Language (IDL) in the ECMAScript standard. It is not currently at a stage in TC39.
+
+Thanks to the great efforts in this area from Yehuda Katz, Alex Russell, Brian Terlson, Domenic Denicola, Tobie Langel, Anne van Kesteren, Cameron McCormack and more which made this investigation possible.
 
 ## Motivation
 
