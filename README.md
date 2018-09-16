@@ -6,21 +6,6 @@ Thanks to the great efforts in this area from Yehuda Katz, Alex Russell, Brian T
 
 ## Motivation
 
-### Why expand the standard library?
-
-JavaScript programmers currently use a fairly minimal standard library, and include additional libraries implemented in JavaScript, for example from npm. This creates the following issues:
-- **Size**: When starting up an application, all library code has to be loaded. On the web, pages are frequently started and navigated to, so the impact on startup time and bandwidth usage is significant; "serverless" faces related issues of startup time.
-- **Quality and stability**: Many developers want a "standard" solution which they can depend on over time to continue to exist and be well-maintained. Having to choose between several competing projects of unknown quality and future maintenance is an additional cost when trying to get a task done.
-- **Optimizability**: Built-in libraries can have implementations which tie in more deeply into the JavaScript engine; this gives the potential for better performance in some cases.
-
-### Why do standard library work in TC39?
-
-Standard libraries can be developed in various different standards venues, and that's a good thing that will likely continue. TC39 is a good place to develop some of these libraries for the following reasons:
-
-- **Cross-environment**: TC39's library which works in all JavaScript environments. For example, the same code can work in both web browsers and Node.js. In practice, TC39 standards are often implemented inside of JavaScript engines, which are developed separately from web browsers, enabling greater reach across projects which embed the engine and less duplication of implementation. In developing standards, TC39 attempts to find a solution which works for multiple embedding environments.
-- **Integrating feedback from stakeholders**: TC39 meetings and GitHub discussion incorporate a large cross-section of the JavaScript community, including implementers, academics, large websites, tools authors, framework maintainers, library authors, etc. It's not perfect, but we are working on improving inclusion from the community. Taking this feedback into account leads to better library definitions.
-- **Coordination among implementations**: TC39 has a good track record in driving coordinated releases of new features across current versions of all major web browsers. This coordination may be motivated by the extensive community discussion which each feature had in its design process, and the highly precise resulting specifications. Developers like this quality for platform predictability. TC39's process can appear to be slow with its large amount of discussion, but the rapidly coordinated implementation can "pay it back".
-
 ### Issues with the current approach
 
 TC39 has been gradually been adding to its standard library using "ecmaspeak" notation, defined in the [Algorithm Conventions](https://tc39.github.io/ecma262/#sec-algorithm-conventions) section of the specification. This provides two main components:
