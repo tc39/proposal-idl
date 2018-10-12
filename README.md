@@ -1,5 +1,7 @@
 # IDL for ECMAScript
 
+Stage 1
+
 This repository is intended for an investigation into using an Interface Description Language (IDL) in the ECMAScript standard. It is not currently at a stage in TC39.
 
 Thanks to the great efforts in this area from Yehuda Katz, Alex Russell, Brian Terlson, Domenic Denicola, Tobie Langel, Anne van Kesteren, Cameron McCormack and more which made this investigation possible.
@@ -66,7 +68,8 @@ WebIDL syntax can look strange to JavaScript developers. We may want to ensure t
 - Specifications could be developed in a more uniform way, regardless of venue, enabling more sharing and cross-pollination
 - Some of the infrastructure for WebIDL may be reused for JavaScript "for free"
 - The additional features of WebIDL to support JavaScript may be useful for other uses of WebIDL; improvements to this standards infrastructure could be broadly beneficial.
-- From the perspective of minimizing complexity, 
+- From the perspective of minimizing complexity, it's simpler if the universe has just one IDL in it, rather than two.
+- When non-web, non-Ecma systems want an IDL (e.g., Node.js, or systems embedding a web engine with custom C++ bindings), it would be clearer that WebIDL is the universal choice.
 
 The idea to use WebIDL in ECMAScript has been received positively by WebIDL's current maintainers. See [the tracking label](https://github.com/heycam/webidl/labels/jsidl) for issues related to supporting JavaScript.
 
@@ -74,8 +77,8 @@ The idea to use WebIDL in ECMAScript has been received positively by WebIDL's cu
 
 [Previous attempts](https://github.com/w3ctag/jsidl) to solve this problem involved proposing a new IDL for ECMAScript. Some reasons for going down this path are:
 - The feature set needed by JavaScript is different from the Web. They follow different conventions, e.g., enumerability, overloading, the types of conversions, etc. Overlap is only partial.
-- In practice, some of the software handling JSIDL
-- From the perspective of 
+- In practice, some of the software handling JSIDL will be different from software which uses WebIDL (e.g., certain JS engines may not be able to reuse the WebIDL generator for web APIs, and need a separate generator)
+- From the perspective of minimizing complexity, JSIDL would be a smaller definition than WebIDL as a whole.
 
 ### Let's put off the decision
 
@@ -86,7 +89,7 @@ There are TC39 members who are strong supporters of each the WebIDL and JSIDL pa
 In terms of the TC39 Stage Process, the following milestones are planned with respect to the stage process, when *entering* each stage:
 
 1. Entering Stage 1: We agree we want to discuss the topic
-    * During Stage 1: Discussion of requirements, work on technical alternatives
+    * During Stage 1: Discussion of requirements, work on technical alternatives -- current point
 2. Entering Stage 2: Agreement on WebIDL vs JSIDL; first draft of IDL itself; IDL conversion drafted for at least one major component of JS
     * During Stage 2: Formalize more of the JS specification as IDL and formalize the IDL definition itself; experiment with automated use of IDL in tools
 3. Entering Stage 3: Entire specification is converted to IDL, and IDL definition is fully rigorous; at least one tool is making some use of the IDL
